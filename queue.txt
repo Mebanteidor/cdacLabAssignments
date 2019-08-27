@@ -1,0 +1,139 @@
+#include"pch.h"
+#include"ops.h"
+using namespace std;
+
+int max, front = -1, rear = -1;
+int* qArray = new int[max];
+
+void insertElement(int* e);
+void deleteElement();
+void getMenu();
+void startOp();
+void setQArr();
+void displayElements();
+
+int main() {
+	//max = getInteger("Enter max size: ");
+	setQArr();
+
+	//cout << "Max: "<<max;
+
+	startOp();
+
+	return 0;
+}
+
+void setQArr() {
+	max = getInteger("Enter max arrray size: ");
+}
+void insertElement(int* e) {
+	if (rear == (max - 1)) {
+		cout << "\n<< Queue is FULL! >>\n"<<endl;
+	}
+	else if (front == -1){
+		front++;
+		rear++;
+
+		qArray[rear] = *e;
+	}
+	else {
+		rear++;
+		qArray[rear] = *e;
+	}
+}
+
+void deleteElement() {
+	
+	if ((front == -1) && (rear == -1)) {
+		cout << "\n<< Queue is EMPTY! >>\n"<<endl;
+	}
+	else if (front == rear) {
+
+		
+		qArray[rear] = 0;
+
+		front = -1;
+		rear = -1;
+
+		cout << "f: " << front;
+		cout << "r: " << rear;
+	}
+	else {
+		qArray[front] = 0;
+		front++;
+	}
+}
+
+void displayElements() {
+	if (front == -1) {
+		cout << "\n<< Queue is EMPTY! >>\n" << endl;
+		return;
+	}
+	for (int i = front;i <= rear;i++) {
+		cout<<qArray[i]<<" ";
+	}
+	cout << endl;
+}
+void getMenu() {
+	string menu = "Queue Operations:\n";
+	menu += "Insert-----> Press 1.\n";
+	menu += "Delete-----> Press 2.\n";
+	menu += "Display----> Press 3.\n";
+	menu += "Exit-------> Press 4.\n\n";
+	menu += ">> Enter Choice: ";
+
+	cout << menu;
+}
+
+void setOff(bool* flag) {
+	*flag = false;
+	//return flag;
+}
+
+void setOn(bool* flag) {
+	*flag = true;
+	//return flag;
+}
+
+bool switchOp(int choice) {
+
+	switch (choice)
+	{
+	case 1://Insert Option
+	{
+		int* eptr;
+		int element = getInteger("Enter Element to add: ");
+		eptr = &element;
+		insertElement(eptr);
+		return true;
+	}
+	case 2://Delete Option
+	{
+		deleteElement();
+		return true;
+	}
+	case 3:
+	{
+		displayElements();
+		return true;
+	}
+	default:
+	{
+		return false;
+		//cout << flag;
+		//return flag
+	}
+	}
+}
+
+void startOp() {
+	
+	int choice;
+	bool flag = true;
+	do {
+		getMenu();
+		//cout << "Enter Choice: " << endl;
+		cin >> choice;
+		flag = switchOp(choice);
+	}while (flag);
+}
