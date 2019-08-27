@@ -1,0 +1,60 @@
+#include"pch.h"
+#include<iostream>
+using namespace std;
+
+int top = -1, stackArray[10],max=4;
+
+void getmenu() {
+	cout << "press 1 for push\n" << "\npress 2 for pop"<<"\npress 3 for display"<<endl;
+}
+
+void push() {
+	if (top == max) {
+		cout << "stack is full"<<endl;
+	}
+	else
+		top++;
+		cout << "enter element to push into stack: ";
+	int a;
+	cin >> a;
+	stackArray[top] = a;
+	cout << "the pushed element into stack is : " << a<<endl;
+}
+void pop() {
+	if (top == -1) {
+		cout << "stack is empty"<<endl;
+	}
+	else
+		cout << stackArray[top] << " is popped." << endl;
+		top--;
+
+}
+
+void display() {
+	for (int i = 0;i < max;i++) {
+		cout << stackArray[i] << endl;
+	}
+}
+int main() {
+
+	int choice;
+	do {
+		getmenu();
+		cin >> choice;
+		switch (choice) {
+		case 1:
+			push();
+			break;
+		case 2:
+			pop();
+			break;
+
+		case 3:
+			display();
+			break;
+		default:
+			cout << "Invalid choice!";
+		}
+		
+	} while (choice < 4);
+}
