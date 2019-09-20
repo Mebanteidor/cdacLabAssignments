@@ -1,0 +1,221 @@
+---------------------------------------BINARY SEARCH TREE WITH MODIFIED BUBBLE SORT----------------------------------------
+
+#include<iostream>
+using namespace std;
+int a[8], f;
+void GetElements()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		cout << "Enter the " << i + 1 << " Element:";
+		cin >> a[i];
+	}
+	cout << "What Number To Find:";
+	cin >> f;
+}
+void SortList()
+{
+	int temp, count = 0, swap = 0;
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 7 - i; j++)
+		{
+			count++;
+			if (a[j] > a[j + 1])
+			{
+				++swap;
+				temp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = temp;
+			}
+		}
+	}
+	cout << "Total Iterations:" << count << endl;
+	cout << "Total Swaps:" << swap << endl;
+}
+void DisplayElements()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		cout << a[i] << "  ";
+	}
+}
+
+void FindElementUsingBinarySorting(int k)
+{
+	int start = 0, top = 7, middle = 0;
+	while (top > start)
+	{
+		middle = (top + start) / 2;
+		//		cout<<"Going Iterations"<<middle<<endl;
+		if (k > a[middle])
+		{
+			start = middle + 1;
+		}
+		else
+		{
+			top = middle;
+		}
+	}
+	if (a[start] == k)
+	{
+		cout << "Number found at:" << start + 1;
+	}
+	else
+	{
+		cout << "Number Not found";
+	}
+
+}
+int main()
+{
+	GetElements();
+	SortList();
+	cout << "Sorted Array\n";
+	DisplayElements();
+	FindElementUsingBinarySorting(f);
+}
+
+-----------------------------------------------------------MARS-------------------------------------------------------------
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int x,y,sx,sy,ex,ey,len;
+	char d;
+	string move;
+	int m[x][y];
+	cout<<"Enter the dimension of Array:";
+	cin>>x>>y;
+	cout<<"Enter the starting point:";
+	cin>>sx>>sy;
+	cout<<"Enter Direction:";
+	cin>>d;
+	cout<<"Enter M to move:";
+	cin>>move;
+	len=move.length();	
+	
+	if(sx>x || sy>y)
+	{
+		cout<<"Out of Range";
+	}
+	else
+	{
+		if(d=='n')
+		{
+			ey=sy-len;
+			if(ey<0)
+				cout<<"Out of Range";
+			else
+				cout<<sx<<ey<<d;
+		}
+		
+		else if(d=='s')
+		{
+			ey=sy+len;
+			if(ey>y)
+				cout<<"Out of Range";
+			else
+				cout<<sx<<ey<<d;
+		}
+		
+		else if(d=='w')
+		{
+			ex=sx-len;
+			if(ex<0)
+				cout<<"Out of Range";
+			else
+				cout<<ex<<sy<<d;
+		}
+		
+		else if(d=='e')
+		{
+			ex=x+len;
+			if(ex<0)
+				cout<<"Out of Range";
+			else
+				cout<<ex<<sy<<d;
+		}
+	}
+	return 0;
+}
+
+---------------------------------------------------------CROSSWORD----------------------------------------------------------
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+char firstelement, result[10][10] = {' '};
+string str1, str2;
+bool flag = false;
+int l1, l2, loci,locj,lef,rit;
+void InsertData()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			result[i][j]='*';
+		}
+	}
+}
+void GetData()
+{
+	cout << "Enter String to be Placed Vertically:";
+	cin >> str1;
+	cout << "Enter String to be Placed Horizantally:";
+	cin >> str2;
+	cout << "Enter the Starting Co-ordinates:";
+	cin >> lef >> rit;
+}
+void FindElement()
+{
+	for (int i = 0; i < l1; i++)
+	{
+		if (flag == true)
+			break;
+		for (int j = 0; j < l2; j++)
+		{
+			if (str1[i] == str2[j])
+			{
+				firstelement = str1[i];
+				loci = i; 
+				locj = j;
+				flag = true;
+			}
+			if (flag == true)
+				break;
+		}
+	}
+	cout << "Matching Element:" << firstelement << " Found At:" << loci<<endl;
+}
+void Display()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			cout << result[i][j];
+		}
+		cout << "\n";
+	}
+}
+void main()
+{
+	InsertData();
+	GetData();
+	l1 = str1.length();
+	l2 = str2.length();
+	FindElement();
+	for (int i = 0; i < l1; i++)
+	{
+		result[lef+i][rit] = str1[i];
+	}
+	for (int i = 0; i < l2; i++)
+	{
+		int startleft = lef + loci;
+		result[startleft][rit+i-1] = str2[i];
+	}
+	Display();
+}
