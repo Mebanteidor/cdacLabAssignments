@@ -1,0 +1,111 @@
+#include<iostream>
+#include<string>
+#include<vector>
+
+using namespace std;
+
+int i{}, flag{};
+size_t found, strno{};
+string *mainArr;
+vector<string> newArr;
+
+string strComp(string*,string);
+void mainOp(string*,string);
+
+int main() {
+
+	size_t j{};
+
+	cin >> strno;
+	
+	mainArr = new string[strno];
+	for (size_t i = 0;i < strno;i++) {
+		cin >> mainArr[i];
+	}
+
+	string iniStr;
+	size_t len = mainArr[0].length();
+	iniStr =  mainArr[0].substr(1, len);
+
+	string cmpStr = strComp(mainArr, iniStr);
+
+	mainOp(mainArr, cmpStr);
+	if (newArr.empty()) {
+		cout << "Impossible"<<endl;
+	}
+	else {
+		cout << endl;
+		cout << mainArr[0]<<endl;
+		for (size_t j = 0;j < newArr.size();j++) {
+			cout << newArr[j] << endl;
+		}
+	}
+	
+	system("pause");
+	return 0;
+}
+
+string strComp(string *copyArr, string iniStr) {
+	
+
+	while (1) {
+		for (size_t i = 1;i < strno;i++) {
+			found = copyArr[i].find(iniStr);
+			if (found != string::npos) {
+				if (copyArr[i].substr(0, (iniStr.length())) == iniStr) {
+					return iniStr;
+				}
+			}
+		}
+		iniStr.erase(iniStr.begin());
+		if (iniStr.length() < 3) {
+			return "Impossible";
+		}
+	}
+}
+
+void mainOp(string* copyArr, string iniStr) {
+	size_t ln{}, sln{};
+	string newIniStr;
+	
+	if (iniStr.length() < 3) {
+		return;
+	}
+	for (size_t i = 1;i < strno;i++) {
+		flag = 0;
+		found = copyArr[i].find(iniStr);
+		if (found != string::npos) {
+			for (size_t j = 0;j < newArr.size();j++) {
+				if (newArr[j] == copyArr[i])
+					flag = 1;
+			}
+			if (flag == 0) {
+				if (copyArr[i].substr(0, (iniStr.length())) == iniStr) {
+					ln = copyArr[i].length();
+					sln = iniStr.length();
+					if (newArr.size() == strno - 1) {
+						return;
+					}
+					newArr.push_back(copyArr[i]);
+					
+
+					newIniStr = copyArr[i].substr(sln, ln);
+
+					mainOp(mainArr, newIniStr);
+				}
+			}
+		}
+	}
+
+	
+
+	if (newArr.size() == strno - 1) {
+		return;
+	}
+	else if (newArr.size() < strno - 1) {
+		newArr.clear();
+		return;
+	}
+	
+	return;
+}
