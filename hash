@@ -1,0 +1,154 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+
+int i{};
+class hashElement {
+
+public:
+	int key;
+	int value;
+	hashElement(int key,int value) {
+		this->key = key;
+		this->value = value;
+	}
+};
+
+class myHashTable {
+public:
+	hashElement** myTable;
+	int entries;
+	int *arr;
+public:
+
+	myHashTable(int entries,int *arr) {
+		this->entries = entries;
+		this->arr = arr;
+		myTable = new hashElement *[entries];
+		for (int i = 0;i < entries;i++) {
+			myTable[i] = new hashElement(i, NULL);
+		}
+	}
+
+	int hashFunction(int f) {
+		return f % this->entries;
+	}
+	void insert() {
+		int j{ 0 }, k{}, temp{}, last{}, c{};
+		for (i = 0;i < this->entries;i++) {
+			if (arr[i] == -1) {
+				break;
+			}
+			j = hashFunction(this->arr[i]);
+			//cout << j << " ";
+			if (myTable[j]->value == NULL/* && (myTable[j]->key == j)*/) {
+				
+				myTable[j]->value = arr[i];
+				cout << myTable[j]->key << " ";
+
+			}
+			else {
+				temp = arr[i];
+			myLabel:
+				k = j;
+				
+				while (myTable[k]->value != NULL) {
+					cout << myTable[k]->key << " ";
+					last = temp % 10;
+					temp -= last;
+					temp = temp / 10;
+					if (temp == 0) {
+						if (last % 2 == 0) {
+							do{
+								cout << myTable[j]->key << " ";
+								j--;
+
+								if (j < 0) {
+									j = entries - 1;
+								}
+								
+							} while (myTable[j]->value != NULL);
+							myTable[j]->value = arr[i];
+							cout << myTable[j]->key << " ";
+							break;
+						}
+						else {
+							do {
+								cout << myTable[j]->key << " ";
+								j++;
+								if (j > this->entries) {
+									j = 0;
+								}
+								
+							} while (myTable[j]->value != NULL);
+							myTable[j]->value = arr[i];
+							cout << myTable[j]->key << " ";
+							break;
+						}
+						
+					}
+
+					k = hashFunction(temp);
+					
+					//cout << j << " ";
+					if (last % 2 != 0) {
+						for (c = 0;c < k;c++) {
+							j++;
+							if (j == this->entries) {
+								j = 0;
+							}
+						}
+						if (myTable[j]->value == NULL) {
+							myTable[j]->value = arr[i];
+							cout << myTable[j]->key << " ";
+							break;
+						}
+						else
+							goto myLabel;
+					}
+					else {
+						for (c = 0;c < k;c++) {
+							j--;
+							if (j < 0) {
+								j = entries - 1;
+							}
+						}
+						if (myTable[j]->value == NULL) {
+							myTable[j]->value = arr[i];
+							cout << myTable[j]->key << " ";
+							break;
+						}
+						else
+							goto myLabel;
+					}
+				}
+				//j = k;
+				
+
+			}
+			cout << endl;
+
+		}
+	}
+};
+
+int main() {
+	int myEntry{}, i{};
+	int* arr;
+	cin >> myEntry;
+	arr = new int[myEntry];
+
+	for (int i = 0;i < myEntry;i++) {
+		cin >> arr[i];
+	}
+	cout << endl;
+	
+	myHashTable hash(myEntry,arr);
+	
+	hash.insert();
+
+	system("pause");
+	return 0;
+}
