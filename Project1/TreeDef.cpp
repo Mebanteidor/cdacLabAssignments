@@ -69,5 +69,16 @@ void Tree::insertNode(int idata) {
 }
 
 void Tree::preOrder() {
+	preOrderTrav(root);
+	cout << endl;
+}
 
+void Tree::preOrderTrav(TreeNode *pnode) {
+	cout << pnode->data << " ";
+	if (pnode->left != NULL) {
+		preOrderTrav(pnode->left);
+	}
+	if (pnode->right != NULL) {
+		preOrderTrav(pnode->right);
+	}
 }
