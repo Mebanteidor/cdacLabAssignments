@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book Registration</title>
+    <script src="../scripts/Books.js"></script>
+    <script>
+        var bCollection = new BookCollection;
+          function saveData(){
+              var id = document.getElementById("bId").value;
+              var title = document.getElementById("bTitle").value;
+              var author = document.getElementById("bAuthor").value;
+              var price = document.getElementById("bPrice").value;
+              var newBook = new Book(id,title,author,price);
+              bCollection.insertBook(newBook);
+              bCollection.getAllBooks();
+          }
+          //get all records
+          // function displayRecords(){
+          //   var data = bCollection.getAllBooks();
+          //   data.forEach(element => {
+              
+          //   });
+          // }
+      </script>
+    <style>
+        input {
+        display: block;
+        margin-bottom: 5px;
+      }
+      #mainDiv {
+        margin: 5px;
+      }
+      table{
+        border: 1px blue;
+      }
+    </style>
+</head>
+<body>
+        <h2>Book Registration</h2>
+        <div id="bookTable">
+          <table id="bTable" border="1">
+            <tr>
+              <th>Book Id</th>
+              <th>Book Title</th>
+              <th>Book Author</th>
+              <th>Book Price</th>
+            </tr>
+          </table>
+        </div>
+        <div id="mainDiv">
+          <label>Enter Book ID:</label>
+          <input type="text" placeholder="Enter book id" id="bId" />
+          <label>Enter Book Title:</label>
+          <input type="text" placeholder="Enter book title" id="bTitle" />
+          <label>Enter Author: </label>
+          <input type="text" placeholder="Enter Author" id="bAuthor" />
+          <label>Enter Price:</label>
+          <input type="number" placeholder="Enter book price" id="bPrice" />
+          <button id="iButton" onclick="saveData()">Register</button>
+        </div>
+        <div id="dataDisplay">
+          <h3>The Details Entered:</h3>
+          <span id="data"></span>
+        </div>
+       
+</body>
+</html>
